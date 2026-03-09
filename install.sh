@@ -1,5 +1,5 @@
 #!/bin/sh
-# install.sh — symlink PocketBase skills into Claude Code
+# install.sh — symlink skills into Claude Code
 # POSIX sh compatible, no bashisms
 
 set -e
@@ -21,7 +21,7 @@ fi
 
 SKILLS_DIR="$HOME/.claude/skills"
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
-SKILL_PREFIX="pb-"
+SKILL_PREFIX=""
 
 info()  { printf "${GREEN}[+]${RESET} %s\n" "$1"; }
 warn()  { printf "${YELLOW}[!]${RESET} %s\n" "$1"; }
@@ -29,7 +29,7 @@ error() { printf "${RED}[-]${RESET} %s\n" "$1"; }
 
 # --- Uninstall ---
 do_uninstall() {
-    info "Uninstalling PocketBase skills..."
+    info "Uninstalling skills..."
     removed=0
     for target in "$SKILLS_DIR/${SKILL_PREFIX}"*; do
         [ -e "$target" ] || continue
@@ -50,7 +50,7 @@ do_uninstall() {
         fi
     done
     if [ "$removed" -eq 0 ]; then
-        warn "No PocketBase skill symlinks found to remove"
+        warn "No skill symlinks found to remove"
     else
         info "Removed $removed skill(s)"
     fi
@@ -75,7 +75,7 @@ case "${1:-}" in
 esac
 
 # --- Install ---
-info "Installing PocketBase skills for Claude Code..."
+info "Installing skills for Claude Code..."
 
 # Create skills directory if needed
 if [ ! -d "$SKILLS_DIR" ]; then
@@ -108,4 +108,4 @@ done
 
 printf "\n"
 info "${BOLD}Done!${RESET} Installed: $installed, Skipped: $skipped"
-info "Skills are now available in Claude Code. Just start a conversation about PocketBase."
+info "Skills are now available in Claude Code."
